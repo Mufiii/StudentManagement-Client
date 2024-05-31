@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardHeader,
@@ -6,18 +5,20 @@ import {
   CardFooter,
   Typography,
   Input,
-  Checkbox,
   Button,
 } from "@material-tailwind/react";
 import axios from "axios"
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
+
+  const navigate = useNavigate()
   const [forms, setForms] = useState({
     username: "",
     password: "",
   });
-  const [rememberMe, setRememberMe] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,13 +30,17 @@ const AdminLogin = () => {
 
   const AdminLoginView = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/admins/login/`, forms);
       console.log(response.data);
-      console.log("Login Successfull");
+      const data = response.data;
+      localStorage.setItem('authToken', data.token.access);
+      toast.success("Login Successful");
+      navigate('/');
     } catch (error) {
       console.error(error);
+      toast.error("Login Failed");
     }
   };
 
@@ -71,13 +76,6 @@ const AdminLogin = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="-ml-2.5">
-              <Checkbox
-                label="Remember Me"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-            </div>
           </CardBody>
           <CardFooter className="pt-0">
             <Button variant="gradient" fullWidth type="submit">

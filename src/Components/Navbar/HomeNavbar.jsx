@@ -1,10 +1,17 @@
 import React from "react";
 import { Navbar, MobileNav, Typography, Button, IconButton } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
+
+
+
+
+
 
 const HomeNavbar = () => {
   const [openNav, setOpenNav] = React.useState(false);
   const navigate = useNavigate();
+  // const isLoggedIn = !!localStorage.getItem('authToken');
 
   const handleLoginClick = () => {
     console.log("Login button clicked");
@@ -51,18 +58,15 @@ const HomeNavbar = () => {
     <div className="max-h-[768px] w-100 ">
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 shadow-none">
         <div className="flex items-center justify-between text-blue-gray-900">
-          <Typography as="a" href="#" className="mr-4 cursor-pointer py-1.5 font-medium">
-            Material Tailwind
+          <Typography style={{fontSize:"1.3em"}} as="a" href="#" className="mr-4 cursor-pointer py-1.5 font-extrabold ">
+            KKMHS
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
-              <Button variant="text" size="sm" className="hidden lg:inline-block" onClick={handleLoginClick}>
-                <span>Log In</span>
-              </Button>
-              <Button variant="gradient" size="sm" className="hidden lg:inline-block" onClick={handleLoginClick}>
-                <span>Sign in</span>
-              </Button>
+              <p>
+                <UserCircleIcon className="h-7 w-7" />
+              </p>
             </div>
             <IconButton
               variant="text"
@@ -82,7 +86,7 @@ const HomeNavbar = () => {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        {/* <MobileNav open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1">
             <Button fullWidth variant="text" size="sm" className="" onClick={handleLoginClick}>
@@ -92,7 +96,7 @@ const HomeNavbar = () => {
               <span>Sign in</span>
             </Button>
           </div>
-        </MobileNav>
+        </MobileNav> */}
       </Navbar>
     </div>
   );
