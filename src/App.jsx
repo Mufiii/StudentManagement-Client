@@ -5,6 +5,7 @@ import AdminLogin from "./Pages/Authentication/AdminLogin";
 import { Toaster } from 'react-hot-toast';
 import AdminProtectedRoute from "./Components/Routes/AdminProtectedRoute";
 import ProtectedRoute from "./Components/Routes/ProtectedRoute";
+import TeacherPostView from "./Pages/Teacher/TeacherPostView";
 
 
 
@@ -22,6 +23,7 @@ function App() {
           <Route element={<ProtectedRoute />} >
             <Route path="/" element={<Layout />}>
               <Route index element={<Dashboard />} />
+              <Route path="/teacher" element={<TeacherPostView />} />
             </Route>
           </Route>
         </Routes>

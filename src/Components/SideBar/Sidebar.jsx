@@ -35,17 +35,17 @@ const Sidebar = () => {
     <div>
       <Card className="h-[90vh] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
         <List>
-          <ListItem>
+          <ListItem onClick={(()=>navigate('/'))}>
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
             Dashboard
           </ListItem>
-          <ListItem>
+          <ListItem onClick={(()=>navigate('teacher'))}>
             <ListItemPrefix>
               <ShoppingBagIcon className="h-5 w-5" />
             </ListItemPrefix>
-            E-Commerce
+            Teacher
           </ListItem>
           <ListItem>
             <ListItemPrefix>
