@@ -10,6 +10,7 @@ import {
 import axios from "axios"
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
@@ -33,9 +34,9 @@ const AdminLogin = () => {
   
     try {
       const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/admins/login/`, forms);
-      console.log(response.data);
+      console.log(response.data); 
       const data = response.data;
-      localStorage.setItem('authToken', data.token.access);
+      localStorage.setItem('authToken', JSON.stringify(data.token));
       toast.success("Login Successful");
       navigate('/');
     } catch (error) {

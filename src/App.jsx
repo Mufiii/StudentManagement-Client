@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import AdminProtectedRoute from "./Components/Routes/AdminProtectedRoute";
 import ProtectedRoute from "./Components/Routes/ProtectedRoute";
 import TeacherPostView from "./Pages/Teacher/TeacherPostView";
+import TeachersListView from "./Pages/Teacher/TeachersListView";
 
 
 
@@ -23,7 +24,8 @@ function App() {
           <Route element={<ProtectedRoute />} >
             <Route path="/" element={<Layout />}>
               <Route index element={<Dashboard />} />
-              <Route path="/teacher" element={<TeacherPostView />} />
+              <Route path="/addteacher" element={<TeacherPostView />} />
+              <Route path="/teacher" element={<TeachersListView />} />
             </Route>
           </Route>
         </Routes>
