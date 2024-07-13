@@ -6,7 +6,7 @@ import TeachersListView from './TeachersListView';
 
 const TecherGetUpdateView = () => {
 
-  const [userDetails, setUserDetails] = useState(null);print(userDetails,'9999999999999')
+  const [userDetails, setUserDetails] = useState(null);
   const [isOpen, setOpen] = useState(false);
 
   const handleOpen = (id) => {
@@ -24,6 +24,7 @@ const TecherGetUpdateView = () => {
   const authToken = JSON.parse(localStorage.getItem('authtoken'));
   console.log(authToken, '5555');
   const { id } = useParams()
+  console.log(id,'999999999');
 
   const fetchUserDetails = async (id) => {
     console.log("Fetching details for teacher ID:", id); // Debugging line
