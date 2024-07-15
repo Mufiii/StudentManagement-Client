@@ -1,14 +1,13 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchSchoolBusRoutes } from '../../Redux/Actions/Action'
-import { Button, Card, Typography } from '@material-tailwind/react'
-import { selectBusRoutes } from '../../Redux/Slices/FetchBusRouteSlice'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSchoolBusRoutes } from '../../../Redux/Actions/Action';
+import { Button, Card, Typography } from '@material-tailwind/react';
+import { selectBusRoutes } from '../../../Redux/Slices/FetchBusRouteSlice';
 
-const BusRoute = () => {
-
-  const dispatch = useDispatch()
-  const routes = useSelector(selectBusRoutes)
-
+const BusRoute = ({ onOpenModal }) => {
+  console.log('BusRoute props:', { onOpenModal }); // Debugging line
+  const dispatch = useDispatch();
+  const routes = useSelector(selectBusRoutes);
 
   useEffect(() => {
     dispatch(fetchSchoolBusRoutes())
@@ -22,7 +21,7 @@ const BusRoute = () => {
         <Typography variant="h4" color="blue-gray">
           Routes
         </Typography>
-        <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
+        <Button onClick={onOpenModal} style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
           Add New Route
         </Button>
       </div>
@@ -44,7 +43,7 @@ const BusRoute = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BusRoute
+export default BusRoute;

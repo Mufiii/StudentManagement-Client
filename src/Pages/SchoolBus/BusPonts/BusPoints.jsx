@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectBusData } from '../../Redux/Slices/fetchBusDataSlice'
-import { fetchSchoolBus, fetchSchoolBusPoints } from '../../Redux/Actions/Action'
+import { selectBusData } from '../../../Redux/Slices/fetchBusDataSlice'
+import { fetchSchoolBus, fetchSchoolBusPoints } from '../../../Redux/Actions/Action'
 import { Button, Card, Typography } from '@material-tailwind/react'
-import { selectBusPoints } from '../../Redux/Slices/fetchBuspointsSlice'
+import { selectBusPoints } from '../../../Redux/Slices/fetchBuspointsSlice'
 
 const BusPoints = () => {
 

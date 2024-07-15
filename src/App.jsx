@@ -11,8 +11,10 @@ import ClassRoomDetail from "./Pages/ClassRoom/ClassRoomDetail";
 import ClassRooms from "./Pages/ClassRoom/ClassRooms";
 import StudentDetail from "./Pages/Users/Student/StudentDetail";
 import SchoolBus from "./Pages/SchoolBus/SchoolBus";
-import BusRoute from "./Pages/SchoolBus/BusRoute";
-import BusPoints from "./Pages/SchoolBus/BusPoints";
+import BusRoute from "./Pages/SchoolBus/Routes/BusRoute";
+import BusPoints from "./Pages/SchoolBus/BusPonts/BusPoints";
+import SchoolBusDetail from "./Pages/SchoolBus/SchoolBusDetail";
+import CreateRoute from "./Pages/SchoolBus/Routes/CreateRoute";
 
 
 
@@ -36,8 +38,10 @@ function App() {
               <Route path="/classroom/:classroomId" element={<ClassRoomDetail />} />
               <Route path="/student/:studentId" element={<StudentDetail />} />
               <Route path="/schoolbus" element={<SchoolBus />} />
+              <Route path="/schoolbus/:schoolBusId" element={<SchoolBusDetail />} />
               <Route path="/route" element={<BusRoute />} />
               <Route path="/buspoints" element={<BusPoints />} />
+              <Route path="addroute" element={<CreateRoute />} />
             </Route>
           </Route>
         </Routes>

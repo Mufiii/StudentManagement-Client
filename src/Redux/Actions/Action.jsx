@@ -147,16 +147,8 @@ export const fetchSchoolBus = createAsyncThunk(
         console.log("bus", response.data);
         return response.data;
       } catch (error) {
-        if (error.response && error.response.status === 404) {
-          // Handle not found scenario (e.g., redirect to an error page)
-          console.log('bus not found');
-          return rejectWithValue('bus not found');
-        } else {
-          console.error('Error during Axios request:', error);
-          console.error('response:', error.response);
-          console.error(error.message);
-          return rejectWithValue('Error fetching bus data');
-        }
+        console.error('Error in fetchAllClassRooms:', error);
+        return rejectWithValue(error.message);
       }
   
     }
@@ -224,6 +216,41 @@ export const fetchSchoolBusPoints = createAsyncThunk(
           console.error('response:', error.response);
           console.error(error.message);
           return rejectWithValue('Error fetching BusPoints data');
+        }
+      }
+  
+    }
+);
+
+
+
+export const fetchSchoolBusData = createAsyncThunk(
+  'Bus/fetchschoolBusData',
+  async (schoolBusId, { rejectWithValue }) => {
+      try {
+        if (!authToken || !authToken.access) {
+          throw new Error('Auth token not found');
+        }
+  
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken.access}`,
+          },
+        };
+        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/bus/${schoolBusId}`, config);
+        console.log("students", response.data);
+        return response.data;
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          // Handle not found scenario (e.g., redirect to an error page)
+          console.log('schoolbus not found');
+          return rejectWithValue('schoolbus not found');
+        } else {
+          console.error('Error during Axios request:', error);
+          console.error('response:', error.response);
+          console.error(error.message);
+          return rejectWithValue('Error fetching schoolbus data');
         }
       }
   
