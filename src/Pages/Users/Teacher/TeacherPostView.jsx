@@ -7,19 +7,15 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import TeachersListView from "./TeachersListView";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTeachers } from "../../../Redux/Slices/FetchAllTeacherSlice";
+import { fetchAllTeachers } from "../../../Redux/Actions/Action";
 
-const TeacherPostView = () => {
+const TeacherPostView = ( {isOpen , handleClose} ) => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch()
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
+  const authToken = JSON.parse(localStorage.getItem('authToken'));
   const [formData, setFormData] = useState({
     name: '',
     pen_no: '',
@@ -40,7 +36,6 @@ const TeacherPostView = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('authToken');
       const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/admins/teachers/`, {
         user: {
           name: formData.name,
@@ -53,12 +48,12 @@ const TeacherPostView = () => {
         pen_no: formData.pen_no,
       }, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${authToken.access}`,
         },
       });
       console.log('Teacher registered successfully:', response.data);
-      // Handle success scenario
-      setIsModalOpen(false);
+      handleClose()
+      dispatch(fetchAllTeachers())
     } catch (error) {
       console.error('Error registering teacher:', error);
       // Handle error scenario
@@ -71,8 +66,8 @@ const TeacherPostView = () => {
     <>
       <Dialog
         size="md"
-        open={isModalOpen}
-        onClose={handleCloseModal} // Close modal when clicked outside or on close button
+        open={isOpen}
+        onClose={handleClose} // Close modal when clicked outside or on close button
         className="bg-transparent shadow-none"
       >
 
@@ -144,7 +139,8 @@ const TeacherPostView = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Phone" required
                 />
               </div>
-              <div className="flex flex-col">
+            </div>
+              <div className="flex flex-col mt-3">
                 <input
                   type="email"
                   name="email"
@@ -153,9 +149,8 @@ const TeacherPostView = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email Address" required
                 />
               </div>
-            </div>
             <div className="flex justify-end gap-3">
-              <Button style={{ backgroundColor: "#E4E5E7" }} className="mt-6 rounded-full text-white" onClick={handleCloseModal}>
+              <Button style={{ backgroundColor: "#E4E5E7" }} className="mt-6 rounded-full text-white" onClick={handleClose}>
                 Cancel
               </Button>
               <Button style={{ backgroundColor: "#8581B8" }} className="mt-6 rounded-full text-white" type="submit">
@@ -165,7 +160,6 @@ const TeacherPostView = () => {
           </form>
         </Card>
       </Dialog>
-      <TeachersListView onOpenModal={handleOpenModal} />
     </>
   );
 }

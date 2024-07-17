@@ -31,6 +31,33 @@ export const fetchAllTeachers = createAsyncThunk(
 )
 
 
+export const fetchSpeceficTeacherData = createAsyncThunk(
+  'teachers/SpeceficTeachers',
+  async (teacherId, { rejectWithValue }) => {
+
+    try {
+      if (!authToken || !authToken.access) {
+        throw new Error('Auth token not found');
+      }
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken.access}`,
+        },
+      };
+      const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/teachers/${teacherId}/`, config);
+      console.log("daaa", response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error in SpeceficTeacher:', error);
+      return rejectWithValue(error.message);
+    }
+
+  }
+)
+
+
 export const fetchAllClassRooms = createAsyncThunk(
   'classroom/fetchall',
   async (_, { rejectWithValue }) => {

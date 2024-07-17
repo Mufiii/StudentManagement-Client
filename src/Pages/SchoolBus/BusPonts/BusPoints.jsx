@@ -1,15 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectBusData } from '../../../Redux/Slices/fetchBusDataSlice'
 import { fetchSchoolBus, fetchSchoolBusPoints } from '../../../Redux/Actions/Action'
 import { Button, Card, Typography } from '@material-tailwind/react'
 import { selectBusPoints } from '../../../Redux/Slices/fetchBuspointsSlice'
+import CreateBusPoint from './CreateBusPoint'
 
 const BusPoints = () => {
 
   const dispatch = useDispatch()
   const buspoints = useSelector(selectBusPoints)
-  console.log(buspoints);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -18,13 +19,21 @@ const BusPoints = () => {
       .catch((err) => console.error('Fetch error:', err));
   }, [dispatch]);
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <div className='flex justify-between mb-4'>
         <Typography variant="h4" color="blue-gray">
           School Bus Points
         </Typography>
-        <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
+        <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold" onClick={handleOpenModal}>
           Add New Bus Point
         </Button>
       </div>
@@ -44,6 +53,7 @@ const BusPoints = () => {
           <Typography>No buspoints available</Typography>
         )}
       </div>
+      <CreateBusPoint isOpen={isModalOpen} handleClose={handleCloseModal} />
     </div>
   )
 }

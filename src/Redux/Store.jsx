@@ -8,6 +8,7 @@ import fetchBusDataSlice from "./Slices/fetchBusDataSlice"
 import FetchBusRouteSlice from "./Slices/FetchBusRouteSlice"
 import fetchBuspointsSlice from "./Slices/fetchBuspointsSlice"
 import FetchBusDetailSlice from "./Slices/FetchBusDetailSlice"
+import FetchSpeceficTeacherSlice from "./Slices/FetchSpeceficTeacherSlice.jsx"
 
 
 const rootreducer = combineReducers({
@@ -17,7 +18,8 @@ const rootreducer = combineReducers({
    bus:fetchBusDataSlice,
    routes:FetchBusRouteSlice,
    buspoints:fetchBuspointsSlice,
-   schoolbusData:FetchBusDetailSlice
+   schoolbusData:FetchBusDetailSlice,
+   teacher:FetchSpeceficTeacherSlice,
 })
 
 const persistConfig = {

@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { Button, Card, Dialog, DialogBody, DialogHeader, DialogFooter, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSchoolBusRoutes } from '../../../Redux/Actions/Action';
-import { selectBusData } from '../../../Redux/Slices/fetchBusDataSlice';
+import { fetchSchoolBusPoints, fetchSchoolBusRoutes } from '../../../Redux/Actions/Action';
+import { selectBusRoutes } from '../../../Redux/Slices/FetchBusRouteSlice';
 
-const CreateRoute = ({ isOpen, handleClose }) => {
+const CreateBusPoint = ({ isOpen, handleClose }) => {
 
   const dispatch = useDispatch();
-  const busNumbers = useSelector(selectBusData);
+  const routeNumbers = useSelector(selectBusRoutes);
 
   const [formData, setFormData] = useState({
-    route_no: '',
-    bus_no: '',
-    from_location: '',
-    to_location: '',
+    route: '',
+    name: '',
+    fee: '',
   });
 
   const handleChange = (e) => {
@@ -29,35 +28,34 @@ const CreateRoute = ({ isOpen, handleClose }) => {
     e.preventDefault();
     try {
       const authToken = JSON.parse(localStorage.getItem('authToken'));
-      const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/bus/routes/`, {
-        route_no: formData.route_no,
-        bus: formData.bus_no,
-        from_location: formData.from_location,
-        to_location: formData.to_location,
+      const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/bus/buspoint/`, {
+        route: formData.route_no,
+        name: formData.name,
+        fee: formData.fee,
       }, {
         headers: {
           Authorization: `Bearer ${authToken.access}`,
         },
       });
-      console.log('New Route Created successfully:', response.data);
-      handleClose(); // Close the modal
-      dispatch(fetchSchoolBusRoutes());
+      console.log('New BusPoint Created successfully:', response.data);
+      handleClose(); 
+      dispatch(fetchSchoolBusPoints());
     } catch (error) {
-      console.error('Error creating route:', error);
+      console.error('Error creating Bus Point:', error);
     }
   };
 
   return (
     <Dialog open={isOpen} handler={handleClose}>
-      <DialogHeader>Add New Route</DialogHeader>
+      <DialogHeader>Add New BusPoint</DialogHeader>
       <DialogBody divider>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 mt-3 gap-6">
             <div className="flex flex-col">
               <input
                 type="text"
-                name="route_no"
-                value={formData.route_no}
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Route No"
@@ -66,16 +64,16 @@ const CreateRoute = ({ isOpen, handleClose }) => {
             </div>
             <div className="flex flex-col">
               <select
-                name="bus_no"
-                value={formData.bus_no}
+                name="route_no"
+                value={formData.route_no}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 required
               >
-                <option value="">Select Bus No</option>
-                {busNumbers.map((bus, index) => (
-                  <option key={index} value={bus.bus_no}>
-                    {bus.bus_no}
+                <option value="">Select Route No</option>
+                {routeNumbers.map((route, index) => (
+                  <option key={index} value={route.route_no}>
+                    {route.route_no}
                   </option>
                 ))}
               </select>
@@ -85,24 +83,11 @@ const CreateRoute = ({ isOpen, handleClose }) => {
             <div className="flex flex-col">
               <input
                 type="text"
-                name="from_location"
-                value={formData.from_location}
+                name="fee"
+                value={formData.fee}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="From"
-                required
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-6 mt-6">
-            <div className="flex flex-col">
-              <input
-                type="text"
-                name="to_location"
-                value={formData.to_location}
-                onChange={handleChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="To"
                 required
               />
             </div>
@@ -121,5 +106,5 @@ const CreateRoute = ({ isOpen, handleClose }) => {
   );
 };
 
-export default CreateRoute;
+export default CreateBusPoint;
 
