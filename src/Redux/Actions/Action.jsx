@@ -59,10 +59,10 @@ export const fetchSpeceficTeacherData = createAsyncThunk(
 
 
 export const fetchAllClassRooms = createAsyncThunk(
-  'classroom/fetchall',
-  async (_, { rejectWithValue }) => {
-
+  'classroom/fetchAll',
+  async (grade, {rejectWithValue }) => {
     try {
+
       if (!authToken || !authToken.access) {
         throw new Error('Auth token not found');
       }
@@ -73,16 +73,16 @@ export const fetchAllClassRooms = createAsyncThunk(
           Authorization: `Bearer ${authToken.access}`,
         },
       };
-      const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/classroom/`, config);
+      const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/classroom/?grade=${grade}`, config);
       console.log("classrooms", response.data);
       return response.data;
     } catch (error) {
       console.error('Error in fetchAllClassRooms:', error);
       return rejectWithValue(error.message);
     }
-
   }
-)
+);
+
 
 
 

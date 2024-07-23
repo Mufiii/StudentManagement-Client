@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchClassRoomData } from '../../Redux/Actions/Action'
 import { Link, useParams } from 'react-router-dom'
 import { Button, Card, Typography } from '@material-tailwind/react'
-
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 
 const ClassRoomDetail = () => {
 
@@ -28,7 +28,7 @@ const ClassRoomDetail = () => {
         {filteredClassroom && (
           <div key={filteredClassroom.id}>
             <div className='flex justify-between mb-4'>
-              <Typography variant="h4" color="blue-gray">
+              <Typography variant="h2" color="blue-gray">
                 Classroom {filteredClassroom.name}
               </Typography>
               <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
@@ -37,7 +37,7 @@ const ClassRoomDetail = () => {
             </div>
             <div>
               {filteredClassroom.classTeacher ? (
-                <Typography variant="h6" color="blue-gray" className="mb-4">
+                <Typography variant="h4" color="blue-gray" className="mb-4">
                   Class Teacher: {filteredClassroom.classTeacher.teacher}
                 </Typography>
               ) : (
@@ -46,36 +46,36 @@ const ClassRoomDetail = () => {
                 </Typography>
               )}
               {filteredClassroom.students.length > 0 ? (
-                <table className="min-w-full bg-white border border-gray-300">
-                  <thead>
-                    <tr>
-                      <th className="py-2 px-4 border-b">S.No</th>
-                      <th className="py-2 px-4 border-b">Name</th>
-                      <th className="py-2 px-4 border-b">Admission No</th>
-                      <th className="py-2 px-4 border-b">Gender</th>
-                      <th className="py-2 px-4 border-b">Guardian Name</th>
-                      <th className="py-2 px-4 border-b">Address</th>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">S.No</TableCell>
+                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Name</TableCell>
+                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Admission No</TableCell>
+                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Gender</TableCell>
+                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Guardian Name</TableCell>
+                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Address</TableCell>
                       {/* Add more table headers as needed */}
-                    </tr>
-                  </thead>
-                  <tbody>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
                     {filteredClassroom.students.map((student, index) => (
-                      <tr key={index}>
-                        <td className="py-2 px-4 border-b">{index + 1}</td>
-                        <td className="py-2 px-4 border-b">
+                      <TableRow key={index}>
+                        <TableCell className="py-2 px-4 border-b">{index + 1}</TableCell>
+                        <TableCell className="py-2 px-4 border-b">
                           <Link to={`/student/${student.id}`} className="text-blue-500 underline">
                             {student.user.name}
                           </Link>
-                        </td>
-                        <td className="py-2 px-4 border-b">{student.admission_no}</td>
-                        <td className="py-2 px-4 border-b">{student.user.gender}</td>
-                        <td className="py-2 px-4 border-b">{student.guardian_name}</td>
-                        <td className="py-2 px-4 border-b">{student.address}</td>
+                        </TableCell>
+                        <TableCell className="py-2 px-4 border-b">{student.admission_no}</TableCell>
+                        <TableCell className="py-2 px-4 border-b">{student.user.gender}</TableCell>
+                        <TableCell className="py-2 px-4 border-b">{student.guardian_name}</TableCell>
+                        <TableCell className="py-2 px-4 border-b">{student.address}</TableCell>
                         {/* Add more table cells as needed */}
-                      </tr>
+                      </TableRow>
                     ))}
-                  </tbody>
-                </table>
+                  </TableBody>
+                </Table>
               ) : (
                 <Typography variant="h3" color="red" className="text-center mt-4">
                   No students found

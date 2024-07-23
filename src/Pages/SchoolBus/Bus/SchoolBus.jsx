@@ -1,15 +1,26 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectBusData } from '../../Redux/Slices/fetchBusDataSlice'
-import { fetchSchoolBus } from '../../Redux/Actions/Action'
+import { selectBusData } from '../../../Redux/Slices/fetchBusDataSlice'
+import { fetchSchoolBus } from '../../../Redux/Actions/Action'
 import { Button, Card, Typography } from '@material-tailwind/react'
 import { Link } from 'react-router-dom'
+import CreateSchoolBus from './CreateSchoolBus'
 
 const SchoolBus = () => {
 
   const dispatch = useDispatch()
   const schoolbus = useSelector(selectBusData)
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
 
 
   useEffect(() => {
@@ -21,10 +32,10 @@ const SchoolBus = () => {
   return (
     <div>
       <div className='flex justify-between mb-4'>
-        <Typography variant="h4" color="blue-gray">
+        <Typography variant="h2" color="blue-gray">
           School Bus List
         </Typography>
-        <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
+        <Button onClick={handleOpenModal} style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
           Add New Bus
         </Button>
       </div>
@@ -47,6 +58,7 @@ const SchoolBus = () => {
         )}
       </div>
     </div>
+    <CreateSchoolBus isOpen={isModalOpen} handleClose={handleCloseModal}/>
     </div>
   )
 }

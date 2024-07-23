@@ -38,7 +38,7 @@ const CreateBusPoint = ({ isOpen, handleClose }) => {
         },
       });
       console.log('New BusPoint Created successfully:', response.data);
-      handleClose(); 
+      handleClose();
       dispatch(fetchSchoolBusPoints());
     } catch (error) {
       console.error('Error creating Bus Point:', error);
@@ -52,18 +52,26 @@ const CreateBusPoint = ({ isOpen, handleClose }) => {
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 mt-3 gap-6">
             <div className="flex flex-col">
+              <label htmlFor="name" className="mb-2 text-sm font-bold text-gray-900">
+                Name
+              </label>
               <input
                 type="text"
+                id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="Route No"
+                placeholder="Name"
                 required
               />
             </div>
             <div className="flex flex-col">
+              <label htmlFor="route_no" className="mb-2 text-sm font-bold text-gray-900">
+                Route No
+              </label>
               <select
+                id="route_no"
                 name="route_no"
                 value={formData.route_no}
                 onChange={handleChange}
@@ -78,11 +86,13 @@ const CreateBusPoint = ({ isOpen, handleClose }) => {
                 ))}
               </select>
             </div>
-          </div>
-          <div className="grid grid-cols-1 gap-6 mt-6">
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2">
+              <label htmlFor="fee" className="mb-2 text-sm font-bold text-gray-900">
+                From
+              </label>
               <input
                 type="text"
+                id="fee"
                 name="fee"
                 value={formData.fee}
                 onChange={handleChange}

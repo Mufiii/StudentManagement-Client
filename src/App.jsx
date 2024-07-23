@@ -10,12 +10,15 @@ import TeachersListView from "./Pages/Users/Teacher/TeachersListView";
 import ClassRoomDetail from "./Pages/ClassRoom/ClassRoomDetail";
 import ClassRooms from "./Pages/ClassRoom/ClassRooms";
 import StudentDetail from "./Pages/Users/Student/StudentDetail";
-import SchoolBus from "./Pages/SchoolBus/SchoolBus";
+import SchoolBus from "./Pages/SchoolBus/Bus/SchoolBus";
 import BusRoute from "./Pages/SchoolBus/Routes/BusRoute";
 import BusPoints from "./Pages/SchoolBus/BusPonts/BusPoints";
-import SchoolBusDetail from "./Pages/SchoolBus/SchoolBusDetail";
+import SchoolBusDetail from "./Pages/SchoolBus/Bus/SchoolBusDetail";
 import CreateRoute from "./Pages/SchoolBus/Routes/CreateRoute";
 import TeacherGetUpdateView from "./Pages/Users/Teacher/TeacherGetUpdateView";
+import CreateSchoolBus from "./Pages/SchoolBus/Bus/CreateSchoolBus";
+import AddBusService from "./Pages/SchoolBus/Bus/AddBusService";
+import Report from "./Pages/SchoolBus/Bus/Report";
 
 
 
@@ -40,10 +43,13 @@ function App() {
               <Route path="/classroom/:classroomId" element={<ClassRoomDetail />} />
               <Route path="/student/:studentId" element={<StudentDetail />} />
               <Route path="/schoolbus" element={<SchoolBus />} />
+              <Route path="/addschoolbus" element={<CreateSchoolBus />} />
               <Route path="/schoolbus/:schoolBusId" element={<SchoolBusDetail />} />
+              <Route path="/addservice" element={<AddBusService />} />
               <Route path="/route" element={<BusRoute />} />
               <Route path="/buspoints" element={<BusPoints />} />
               <Route path="addroute" element={<CreateRoute />} />
+              <Route path="report" element={<Report />} />
             </Route>
           </Route>
         </Routes>

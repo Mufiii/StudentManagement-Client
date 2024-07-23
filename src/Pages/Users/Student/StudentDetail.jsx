@@ -7,7 +7,7 @@ import { Typography } from '@material-tailwind/react'
 
 const StudentDetail = () => {
 
-  const {studentId} = useParams()
+  const { studentId } = useParams()
   const dispatch = useDispatch()
   const student = useSelector(selectStudent);
 
@@ -18,20 +18,24 @@ const StudentDetail = () => {
   }, [dispatch, studentId]);
 
 
-  
+
   return (
     <div>
-        <div>
-      {student ? (
-        <div>
-          <Typography variant='h3'>Name: {student.user.name}</Typography>
-          <Typography variant='h3'>Username: {student.user.username}</Typography>
-          {/* Add other student details here */}
-        </div>
-      ) : (
-        <p>No student data available</p>
-      )}
-    </div>
+      <div>
+        {student ? (
+          <div>
+            <Typography variant='h3'>Name: {student.user.name}</Typography>
+            <Typography variant='h3'>Username: {student.user.username}</Typography>
+            <Typography variant='h3'>Gender: {student.user.gender}</Typography>
+            <Typography variant='h3'>phone: {student.user.phone}</Typography>
+            <Typography variant='h3'>Date of Birth: {student.user.date_of_birth}</Typography>
+            <Typography variant='h3'>Guardian Name: {student.guardian_name}</Typography>
+            <Typography variant='h3'>Address: {student.address}</Typography>
+          </div>
+        ) : (
+          <p>No student data available</p>
+        )}
+      </div>
     </div>
   )
 }

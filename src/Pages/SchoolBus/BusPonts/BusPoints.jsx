@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectBusData } from '../../../Redux/Slices/fetchBusDataSlice'
 import { fetchSchoolBus, fetchSchoolBusPoints } from '../../../Redux/Actions/Action'
-import { Button, Card, Typography } from '@material-tailwind/react'
+import { Button, Card, IconButton, Typography } from '@material-tailwind/react'
 import { selectBusPoints } from '../../../Redux/Slices/fetchBuspointsSlice'
 import CreateBusPoint from './CreateBusPoint'
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const BusPoints = () => {
 
@@ -30,25 +33,42 @@ const BusPoints = () => {
   return (
     <div>
       <div className='flex justify-between mb-4'>
-        <Typography variant="h4" color="blue-gray">
+        <Typography variant="h2" color="blue-gray">
           School Bus Points
         </Typography>
         <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold" onClick={handleOpenModal}>
           Add New Bus Point
         </Button>
       </div>
-      <div className='flex flex-wrap gap-4'>
+      <div className='w-full overflow-x-auto'>
         {buspoints && buspoints.length > 0 ? (
-          buspoints.map((bus, index) => (
-            <div key={index} className='mb-2'>
-              <Card className='w-44 h-44 flex items-center justify-center'>
-                <div className='flex'>
-                  <Typography className='text-sm font-bold'>Bus Point: {bus.name}</Typography>
-                  <Typography className='text-sm font-bold'>Fees: {bus.fee}</Typography>
-                </div>
-              </Card>
-            </div>
-          ))
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ fontWeight: 'bold' }}>S.No</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Bus Point</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Fees</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {buspoints.map((bus, index) => (
+                <TableRow key={index}>
+                  <TableCell className='text-sm font-bold'>{index + 1}</TableCell>
+                  <TableCell className='text-sm font-bold'>{bus.name}</TableCell>
+                  <TableCell className='text-sm font-bold'>{bus.fee}</TableCell>
+                  <TableCell>
+                    <IconButton onClick={() => handleEditModal(bus.id)}>
+                      <FaRegEdit size={25} />
+                    </IconButton>
+                    <IconButton onClick={() => handleDelete(bus.id)}>
+                      <MdDelete />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+              
+            </TableBody>
+          </Table>
         ) : (
           <Typography>No buspoints available</Typography>
         )}

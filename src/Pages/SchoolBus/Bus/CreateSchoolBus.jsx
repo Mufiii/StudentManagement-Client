@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { Button, Card, Dialog, DialogBody, DialogHeader, DialogFooter, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSchoolBusRoutes } from '../../../Redux/Actions/Action';
-import { selectBusData } from '../../../Redux/Slices/fetchBusDataSlice';
+import { fetchSchoolBus } from '../../../Redux/Actions/Action';
+import { ImCross } from "react-icons/im";
 
-const CreateRoute = ({ isOpen, handleClose }) => {
+const CreateSchoolBus = ({ isOpen, handleClose }) => {
 
   const dispatch = useDispatch();
-  const busNumbers = useSelector(selectBusData);
 
   const [formData, setFormData] = useState({
-    route_no: '',
     bus_no: '',
-    from_location: '',
-    to_location: '',
+    driver_name:'',
+    plate_number:'',
+    capacity: '',
   });
 
   const handleChange = (e) => {
@@ -29,92 +28,90 @@ const CreateRoute = ({ isOpen, handleClose }) => {
     e.preventDefault();
     try {
       const authToken = JSON.parse(localStorage.getItem('authToken'));
-      const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/bus/routes/`, {
-        route_no: formData.route_no,
-        bus: formData.bus_no,
-        from_location: formData.from_location,
-        to_location: formData.to_location,
+      const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/bus/bus/`, {
+        bus_no: formData.bus_no,
+        driver_name:formData.driver_name,
+        plate_number:formData.plate_number,
+        capacity: formData.capacity,
       }, {
         headers: {
           Authorization: `Bearer ${authToken.access}`,
         },
       });
-      console.log('New Route Created successfully:', response.data);
-      handleClose(); // Close the modal
-      dispatch(fetchSchoolBusRoutes());
+      console.log('New BusPoint Created successfully:', response.data);
+      handleClose();
+      dispatch(fetchSchoolBus());
     } catch (error) {
-      console.error('Error creating route:', error);
+      console.error('Error creating New Bus:', error);
     }
   };
 
   return (
     <Dialog open={isOpen} handler={handleClose}>
-      <DialogHeader>Add New Route</DialogHeader>
+      <div className='flex  justify-between'>
+      <DialogHeader>Add New Bus</DialogHeader>
+      <DialogHeader><ImCross onClick={handleClose}/></DialogHeader>
+      </div>
       <DialogBody divider>
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 mt-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 mt-3 gap-6 ">
             <div className="flex flex-col">
-              <label htmlFor="route_no" className="mb-2 text-sm font-bold text-gray-900">
-                Route No
+              <label htmlFor="name" className="mb-2 text-sm font-bold text-gray-900">
+                Bus Number
               </label>
               <input
                 type="text"
-                name="route_no"
-                value={formData.route_no}
-                onChange={handleChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="Route No"
-                required
-              />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="route_no" className="mb-2 text-sm font-bold text-gray-900">
-                Bus Number
-              </label>
-              <select
+                id="name"
                 name="bus_no"
                 value={formData.bus_no}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                required
-              >
-                <option value="">Select Bus No</option>
-                {busNumbers.map((bus, index) => (
-                  <option key={index} value={bus.bus_no}>
-                    {bus.bus_no}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-6 mt-6">
-            <div className="flex flex-col">
-              <label htmlFor="route_no" className="mb-2 text-sm font-bold text-gray-900">
-                From Location
-              </label>
-              <input
-                type="text"
-                name="from_location"
-                value={formData.from_location}
-                onChange={handleChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="From"
+                placeholder="Bus Number"
                 required
               />
             </div>
-          </div>
-          <div className="grid grid-cols-1 gap-6 mt-6">
             <div className="flex flex-col">
-              <label htmlFor="route_no" className="mb-2 text-sm font-bold text-gray-900">
-                To Location
+              <label htmlFor="name" className="mb-2 text-sm font-bold text-gray-900">
+                Driver Name
               </label>
               <input
                 type="text"
-                name="to_location"
-                value={formData.to_location}
+                id="driver_name"
+                name="driver_name"
+                value={formData.driver_name}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="To"
+                placeholder="Driver Name"
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="name" className="mb-2 text-sm font-bold text-gray-900">
+                Vehicle Number
+              </label>
+              <input
+                type="text"
+                id="plate_number"
+                name="plate_number"
+                value={formData.plate_number}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Vehicle Number"
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="name" className="mb-2 text-sm font-bold text-gray-900">
+                Capacity
+              </label>
+              <input
+                type="text"
+                id="capacity"
+                name="capacity"
+                value={formData.capacity}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Capacity"
                 required
               />
             </div>
@@ -133,5 +130,5 @@ const CreateRoute = ({ isOpen, handleClose }) => {
   );
 };
 
-export default CreateRoute;
+export default CreateSchoolBus;
 
