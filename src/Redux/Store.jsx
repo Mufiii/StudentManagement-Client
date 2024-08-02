@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import {persistStore,persistReducer} from 'redux-persist'
+import { persistStore, persistReducer } from 'redux-persist'
 import storage from "redux-persist/lib/storage"
 import FetchAllTeacherSlice from "./Slices/FetchAllTeacherSlice"
 import FetchAllClassroomSlice from "./Slices/FetchAllClassroomSlice"
@@ -9,31 +9,33 @@ import FetchBusRouteSlice from "./Slices/FetchBusRouteSlice"
 import fetchBuspointsSlice from "./Slices/fetchBuspointsSlice"
 import FetchBusDetailSlice from "./Slices/FetchBusDetailSlice"
 import FetchSpeceficTeacherSlice from "./Slices/FetchSpeceficTeacherSlice.jsx"
+import fetchStudentTransactionSlice from "./Slices/fetchStudentTransactionSlice.jsx"
 
 
 const rootreducer = combineReducers({
-   teachers:FetchAllTeacherSlice,
-   classrooms:FetchAllClassroomSlice,
-   student:StudentDataSlice,
-   bus:fetchBusDataSlice,
-   routes:FetchBusRouteSlice,
-   buspoints:fetchBuspointsSlice,
-   schoolbusData:FetchBusDetailSlice,
-   teacher:FetchSpeceficTeacherSlice,
+    teachers: FetchAllTeacherSlice,
+    classrooms: FetchAllClassroomSlice,
+    student: StudentDataSlice,
+    bus: fetchBusDataSlice,
+    routes: FetchBusRouteSlice,
+    buspoints: fetchBuspointsSlice,
+    schoolbusData: FetchBusDetailSlice,
+    teacher: FetchSpeceficTeacherSlice,
+    transactions: fetchStudentTransactionSlice,
 })
 
 const persistConfig = {
-    key:'root',
+    key: 'root',
     storage,
-    version:1
+    version: 1
 }
-const persistedReducer = persistReducer(persistConfig,rootreducer)
+const persistedReducer = persistReducer(persistConfig, rootreducer)
 export const store = configureStore({
-    reducer:persistedReducer,
-    middleware:(getDefaultMiddleware ) => getDefaultMiddleware({
-        serializableCheck:false
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
     })
-    
+
 })
 
 export const persistor = persistStore(store) 

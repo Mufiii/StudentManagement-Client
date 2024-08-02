@@ -22,14 +22,14 @@ const ClassRoomDetail = () => {
   const filteredClassroom = classrooms.find(room => room.id === parseInt(classroomId));
   console.log(filteredClassroom);
 
-  return (
+  return (  
     <div>
       <div>
         {filteredClassroom && (
           <div key={filteredClassroom.id}>
             <div className='flex justify-between mb-4'>
               <Typography variant="h2" color="blue-gray">
-                Classroom {filteredClassroom.name}
+                Classroom {filteredClassroom.name}{filteredClassroom.division}
               </Typography>
               <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
                 Add New Student

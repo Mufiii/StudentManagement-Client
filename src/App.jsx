@@ -19,6 +19,7 @@ import TeacherGetUpdateView from "./Pages/Users/Teacher/TeacherGetUpdateView";
 import CreateSchoolBus from "./Pages/SchoolBus/Bus/CreateSchoolBus";
 import AddBusService from "./Pages/SchoolBus/Bus/AddBusService";
 import Report from "./Pages/SchoolBus/Bus/Report";
+import StudentBusPaymentsDetail from "./Pages/SchoolBus/Bus/Payments/StudentBusPaymentsDetail";
 
 
 
@@ -50,6 +51,8 @@ function App() {
               <Route path="/buspoints" element={<BusPoints />} />
               <Route path="addroute" element={<CreateRoute />} />
               <Route path="report" element={<Report />} />
+              <Route path="transactions" element={<StudentBusPaymentsDetail />} />
+              <Route path="/transactions/:user_id" element={<StudentBusPaymentsDetail />} />
             </Route>
           </Route>
         </Routes>

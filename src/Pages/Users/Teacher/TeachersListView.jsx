@@ -5,14 +5,14 @@ import { fetchAllTeachers } from '../../../Redux/Actions/Action';
 import { Button, Card, Typography } from '@material-tailwind/react';
 import TeacherPostView from './TeacherPostView';
 import TeacherGetUpdateView from './TeacherGetUpdateView';
+import { useNavigate } from 'react-router-dom';
 
 const TeachersListView = () => {
   const dispatch = useDispatch();
   const teachers = useSelector(selectTeachers);
+  const navigate = useNavigate()
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTeacherId, setSelectedTeacherId] = useState(null);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -22,14 +22,8 @@ const TeachersListView = () => {
     setIsModalOpen(false);
   };
 
-  const handleViewModal = (id) => {
-    setSelectedTeacherId(id);
-    setIsOpenModal(true);
-  };
-
-  const handleCloseViewModal = () => {
-    setIsOpenModal(false);
-    setSelectedTeacherId(null);
+  const handleCardClick = (teacherId) => {
+    navigate(`/teacher/${teacherId}`);
   };
 
   useEffect(() => {
@@ -52,11 +46,11 @@ const TeachersListView = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
         {teachers.map((user, index) => (
           <div key={index} className="mb-2">
-            <Card className="w-full p-0 overflow-hidden" onClick={() => handleViewModal(user.id)}>
+            <Card className="w-full p-0 overflow-hidden" onClick={() => handleCardClick(user.id)}>
               <div className="relative flex flex-col items-center">
                 <div className="w-full h-32 bg-gray-200 flex justify-center items-end rounded-t-lg">
                   <img
-                    src="https://imgs.search.brave.com/g7dKezKWVTxg4bO0zAStpbkT-dim0uK3tjt7i0NWjPI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9ueXBv/c3QuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9zaXRlcy8yLzIw/MjQvMDcvcm9uYWxk/by1ldXJvLmpwZz93/PTEwMjQ"
+                    src={user.photo}
                     alt={user.user.name}
                     className="w-32 h-32 rounded-full -mb-12 z-10 border-4 border-white"
                   />
@@ -71,7 +65,6 @@ const TeachersListView = () => {
         ))}
       </div>
       <TeacherPostView isOpen={isModalOpen} handleClose={handleCloseModal} />
-      <TeacherGetUpdateView isOpen={isOpenModal} handleClose={handleCloseViewModal} teacherId={selectedTeacherId} />
     </div>
   );
 }

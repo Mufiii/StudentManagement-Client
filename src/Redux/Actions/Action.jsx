@@ -9,16 +9,16 @@ export const fetchAllTeachers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
 
     try {
-      if (!authToken || !authToken.access) {
-        throw new Error('Auth token not found');
-      }
+      // if (!authToken || !authToken.access) {
+      //   throw new Error('Auth token not found');
+      // }
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken.access}`,
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: `Bearer ${authToken.access}`,
+      //   },
+      // };
       const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/teachers/`, config);
       console.log("daaa", response.data);
       return response.data;
@@ -36,17 +36,7 @@ export const fetchSpeceficTeacherData = createAsyncThunk(
   async (teacherId, { rejectWithValue }) => {
 
     try {
-      if (!authToken || !authToken.access) {
-        throw new Error('Auth token not found');
-      }
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken.access}`,
-        },
-      };
-      const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/teachers/${teacherId}/`, config);
+      const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/teachers/${teacherId}/`);
       console.log("daaa", response.data);
       return response.data;
     } catch (error) {
@@ -62,18 +52,7 @@ export const fetchAllClassRooms = createAsyncThunk(
   'classroom/fetchAll',
   async (grade, {rejectWithValue }) => {
     try {
-
-      if (!authToken || !authToken.access) {
-        throw new Error('Auth token not found');
-      }
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken.access}`,
-        },
-      };
-      const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/classroom/?grade=${grade}`, config);
+      const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/classroom/?grade=${grade}`);
       console.log("classrooms", response.data);
       return response.data;
     } catch (error) {
@@ -90,17 +69,7 @@ export const fetchClassRoomData = createAsyncThunk(
   'classroom/fetchData',
   async (classroomId, { rejectWithValue }) => {
       try {
-        if (!authToken || !authToken.access) {
-          throw new Error('Auth token not found');
-        }
-  
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken.access}`,
-          },
-        };
-        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/classroom/${classroomId}`, config);
+        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/classroom/${classroomId}`);
         console.log("classrooms", response.data);
         return response.data;
       } catch (error) {
@@ -126,17 +95,7 @@ export const fetchStudentData = createAsyncThunk(
   'student/fetchStudentData',
   async (studentId, { rejectWithValue }) => {
       try {
-        if (!authToken || !authToken.access) {
-          throw new Error('Auth token not found');
-        }
-  
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken.access}`,
-          },
-        };
-        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/admins/student/${studentId}`, config);
+        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/students/studentDetail/${studentId}`);
         console.log("students", response.data);
         return response.data;
       } catch (error) {
@@ -160,17 +119,7 @@ export const fetchSchoolBus = createAsyncThunk(
     'fetch/schoolbus',
     async (studentId, { rejectWithValue }) => {
       try {
-        if (!authToken || !authToken.access) {
-          throw new Error('Auth token not found');
-        }
-  
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken.access}`,
-          },
-        };
-        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/bus/`, config);
+        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/bus/`);
         console.log("bus", response.data);
         return response.data;
       } catch (error) {
@@ -185,17 +134,8 @@ export const fetchSchoolBusRoutes = createAsyncThunk(
     'fetch/schoolbusRoutes',
     async (_, { rejectWithValue }) => {
       try {
-        if (!authToken || !authToken.access) {
-          throw new Error('Auth token not found');
-        }
-  
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken.access}`,
-          },
-        };
-        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/routes/`, config);
+
+        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/routes/`);
         console.log("routes", response.data);
         return response.data;
       } catch (error) {
@@ -220,17 +160,7 @@ export const fetchSchoolBusPoints = createAsyncThunk(
     'fetch/schoolbusPoints',
     async (_, { rejectWithValue }) => {
       try {
-        if (!authToken || !authToken.access) {
-          throw new Error('Auth token not found');
-        }
-  
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken.access}`,
-          },
-        };
-        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/buspoint/`, config);
+        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/buspoint/`);
         console.log("Bus Points", response.data);
         return response.data;
       } catch (error) {
@@ -255,17 +185,7 @@ export const fetchSchoolBusData = createAsyncThunk(
   'Bus/fetchschoolBusData',
   async (schoolBusId, { rejectWithValue }) => {
       try {
-        if (!authToken || !authToken.access) {
-          throw new Error('Auth token not found');
-        }
-  
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken.access}`,
-          },
-        };
-        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/bus/${schoolBusId}`, config);
+        const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/bus/bus/${schoolBusId}`);
         console.log("students", response.data);
         return response.data;
       } catch (error) {
@@ -282,4 +202,31 @@ export const fetchSchoolBusData = createAsyncThunk(
       }
   
     }
+);
+
+
+export const fetchStudentTransactions = createAsyncThunk(
+  'students/fetchStudentTransactionsDetails',
+  async (user_id, { rejectWithValue }) => {
+    try {
+
+
+      const response = await axios.get(`${import.meta.env.VITE_URL_SERVER}/teacher/transactions/`, {
+        params: { user_id }, // Use query parameters
+      });
+
+      console.log("transactions", response.data);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.log('BusDetails not found');
+        return rejectWithValue('schoolbus BusDetails not found');
+      } else {
+        console.error('Error during Axios request:', error);
+        console.error('response:', error.response);
+        console.error(error.message);
+        return rejectWithValue('Error fetching schoolbus data');
+      }
+    }
+  }
 );

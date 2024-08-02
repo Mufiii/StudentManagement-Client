@@ -8,10 +8,12 @@ import { IoMdGrid } from "react-icons/io";
 import { FaList } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { FaCloudUploadAlt } from "react-icons/fa";
+import AddClassRoom from './AddClassRoom';
 
 const ClassRooms = () => {
   const [selectedClass, setSelectedClass] = useState(10);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCardClick = (classroomId) => {
     navigate(`/classroom/${classroomId}`);
@@ -24,6 +26,13 @@ const ClassRooms = () => {
     dispatch(fetchAllClassRooms(selectedClass));
   }, [dispatch, selectedClass]);
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div>
@@ -34,7 +43,7 @@ const ClassRooms = () => {
           </Typography>
         </div>
         <div className='flex gap-3'>
-          <Button style={{ backgroundColor: "#8581B8" }} className="text-normal font-bold">
+          <Button style={{ backgroundColor: "#8581B8" }} onClick={handleOpenModal} className="text-normal font-bold">
             Add ClassRoom
           </Button>
           <Button style={{ backgroundColor: "#8581B8" }} className="text-normal font-bold flex">
@@ -90,7 +99,7 @@ const ClassRooms = () => {
           </div>
         ))}
       </div>
-
+      <AddClassRoom isOpen={isModalOpen} handleClose={handleCloseModal} />
     </div>
   );
 }
