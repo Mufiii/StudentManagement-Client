@@ -28,18 +28,14 @@ const CreateRoute = ({ isOpen, handleClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const authToken = JSON.parse(localStorage.getItem('authToken'));
       const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/bus/routes/`, {
         route_no: formData.route_no,
         bus: formData.bus_no,
         from_location: formData.from_location,
         to_location: formData.to_location,
-      }, {
-        headers: {
-          Authorization: `Bearer ${authToken.access}`,
-        },
       });
       console.log('New Route Created successfully:', response.data);
+      window.location.reload();
       handleClose(); // Close the modal
       dispatch(fetchSchoolBusRoutes());
     } catch (error) {

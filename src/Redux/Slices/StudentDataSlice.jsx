@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchStudentData } from "../Actions/Action";
 
-
-
 const initialState = {
   student: [],
   loading: false,
   error: null,
-}
+};
 
 const StudentDataSlice = createSlice({
   name: 'student',
@@ -15,7 +13,6 @@ const StudentDataSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // fetchAllTeachers
       .addCase(fetchStudentData.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -27,9 +24,9 @@ const StudentDataSlice = createSlice({
       .addCase(fetchStudentData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
+      });
   },
-})
+});
 
 export default StudentDataSlice.reducer;
-export const selectStudent = (state) => state.student.student; 
+export const selectStudent = (state) => state.student.student;

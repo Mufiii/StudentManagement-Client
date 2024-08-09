@@ -11,11 +11,12 @@ import { Table, TableHead, TableBody, TableRow, TableCell, IconButton } from '@m
 
 
 
-const BusRoute = () => {
+const BusPointGetUpdateComp = () => {
   const dispatch = useDispatch();
   const routes = useSelector(selectBusRoutes);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [selectedRouteId, setSelectedRouteId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchSchoolBusRoutes())
@@ -33,6 +34,7 @@ const BusRoute = () => {
 
   const handleEditModal = (busId) => {
     console.log(`Editing bus with ID: ${busId}`);
+    setSelectedRouteId(busId)
     setIsOpenModal(true);
   };
 
@@ -40,6 +42,7 @@ const BusRoute = () => {
   const handleditCloseModal = () => {
     setIsOpenModal(false);
   };
+
 
   return (
     <div>
@@ -56,7 +59,7 @@ const BusRoute = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell style={{ fontWeight: 'bold'}}>Route Number</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Route Number</TableCell>
                 <TableCell style={{ fontWeight: 'bold' }}>From Location</TableCell>
                 <TableCell style={{ fontWeight: 'bold' }}>To Location</TableCell>
                 <TableCell style={{ fontWeight: 'bold' }}>Bus No</TableCell>
@@ -70,13 +73,15 @@ const BusRoute = () => {
                   <TableCell >{bus.to_location}</TableCell>
                   <TableCell >{bus.bus}</TableCell>
                   <TableCell>
-                    <IconButton onClick={() => handleEditModal(bus.id)}>
+                    <IconButton onClick={() => handleBusPointEditModal(bus.id)} style={{ backgroundColor: 'transparent' }}>
                       <FaRegEdit size={25} />
                     </IconButton>
-                    <IconButton onClick={() => handleDelete(bus.id)}>
+                    <IconButton onClick={() => handleDelete(bus.id)} style={{ backgroundColor: 'transparent' }}>
                       <MdDelete />
                     </IconButton>
                   </TableCell>
+
+
                 </TableRow>
               ))}
             </TableBody>
@@ -86,9 +91,13 @@ const BusRoute = () => {
         )}
       </div>
       <CreateRoute isOpen={isModalOpen} handleClose={handleCloseModal} />
-      <RouteGetUpdateComp isOpen={isOpenModal} handleClose={handleditCloseModal} />
+      <RouteGetUpdateComp
+        isOpen={isOpenModal}
+        handleClose={handleditCloseModal}
+        routeId={selectedRouteId}
+      />
     </div >
   );
 };
 
-export default BusRoute;
+export default BusPointGetUpdateComp;

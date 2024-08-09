@@ -39,6 +39,7 @@ const CreateSchoolBus = ({ isOpen, handleClose }) => {
         },
       });
       console.log('New BusPoint Created successfully:', response.data);
+      window.location.reload();
       handleClose();
       dispatch(fetchSchoolBus());
     } catch (error) {

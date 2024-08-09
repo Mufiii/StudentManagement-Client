@@ -31,20 +31,25 @@ const AdminLogin = () => {
 
   const AdminLoginView = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}/admins/login/`, forms);
-      console.log(response.data); 
+      const response = await axios.post(`${import.meta.env.VITE_URL_SERVER}admins/login/`, forms);
       const data = response.data;
-      localStorage.setItem('authToken', JSON.stringify(data.token));
-      toast.success("Login Successful");
-      navigate('/');
+
+      if (data.role === 'admin') {
+        localStorage.setItem('authToken', JSON.stringify(data.token));
+        toast.success("Login Successful");
+        navigate('/');
+      } else {
+        toast.error("You are not authorized to log in as admin");
+      }
     } catch (error) {
       console.error(error);
       toast.error("Login Failed");
     }
   };
 
+  
   return (
     <div className="flex justify-center items-center h-screen bg-teal-50">
 

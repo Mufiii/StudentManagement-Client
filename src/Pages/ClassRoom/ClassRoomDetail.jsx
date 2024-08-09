@@ -1,65 +1,72 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchClassRoomData } from '../../Redux/Actions/Action'
 import { Link, useParams } from 'react-router-dom'
 import { Button, Card, Typography } from '@material-tailwind/react'
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { selectClassRoomsData } from '../../Redux/Slices/fetchClassRoomDataSlice'
+import NewStudents from '../Users/Student/NewStudents'
 
 const ClassRoomDetail = () => {
 
   const { classroomId } = useParams()
   const dispatch = useDispatch()
-  const classrooms = useSelector(state => state.classrooms.classrooms);
-
+  const classrooms = useSelector(selectClassRoomsData);
+  const [isOpenModal,setOpenModal] = useState(false)
   useEffect(() => {
-    if (!classrooms.length) {
-      dispatch(fetchClassRoomData(classroomId))
-        .then((result) => console.log("Fetch success in roomData:", result))
-        .catch((err) => console.error("Fetch error in roomData:", err));
-    }
-  }, [dispatch, classroomId, classrooms.length]);
+    
+    dispatch(fetchClassRoomData(classroomId))
+      .then((result) => console.log("Fetch success in roomData:", result))
+      .catch((err) => console.error("Fetch error in roomData:", err));
+  }, []);
 
-  const filteredClassroom = classrooms.find(room => room.id === parseInt(classroomId));
-  console.log(filteredClassroom);
+  const handleOpenModal = () => {
+      setOpenModal(true)
+  }
 
-  return (  
+  const handleCloseModal = () => {
+    setOpenModal(false)
+  }
+
+
+  return (
     <div>
       <div>
-        {filteredClassroom && (
-          <div key={filteredClassroom.id}>
+        {classrooms && (
+          <div key={classrooms.id}>
             <div className='flex justify-between mb-4'>
               <Typography variant="h2" color="blue-gray">
-                Classroom {filteredClassroom.name}{filteredClassroom.division}
+                Classroom {classrooms.name}{classrooms.division}
               </Typography>
-              <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
+              <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold" onClick={handleOpenModal}>
                 Add New Student
               </Button>
             </div>
             <div>
-              {filteredClassroom.classTeacher ? (
+              {classrooms.classTeacher ? (
                 <Typography variant="h4" color="blue-gray" className="mb-4">
-                  Class Teacher: {filteredClassroom.classTeacher.teacher}
+                  Class Teacher: {classrooms.classTeacher.teacher}
                 </Typography>
               ) : (
                 <Typography variant="h6" color="red" className="mb-4">
                   Class Teacher: No class teacher assigned
                 </Typography>
               )}
-              {filteredClassroom.students.length > 0 ? (
+              {classrooms && classrooms.students && classrooms.students.length > 0 ? (
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">S.No</TableCell>
-                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Name</TableCell>
-                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Admission No</TableCell>
-                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Gender</TableCell>
-                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Guardian Name</TableCell>
-                      <TableCell style={{ fontWeight: 900}} className="py-2 px-4 border-b">Address</TableCell>
+                      <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">S.No</TableCell>
+                      <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">Name</TableCell>
+                      <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">Admission No</TableCell>
+                      <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">Gender</TableCell>
+                      <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">Guardian Name</TableCell>
+                      <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">Address</TableCell>
                       {/* Add more table headers as needed */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {filteredClassroom.students.map((student, index) => (
+                    {classrooms.students.map((student, index) => (
                       <TableRow key={index}>
                         <TableCell className="py-2 px-4 border-b">{index + 1}</TableCell>
                         <TableCell className="py-2 px-4 border-b">
@@ -85,6 +92,10 @@ const ClassRoomDetail = () => {
           </div>
         )}
       </div>
+      <NewStudents
+        isOpen={isOpenModal}
+        handleClose={handleCloseModal}
+      />
     </div>
   )
 }

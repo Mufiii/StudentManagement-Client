@@ -12,7 +12,7 @@ import ClassRooms from "./Pages/ClassRoom/ClassRooms";
 import StudentDetail from "./Pages/Users/Student/StudentDetail";
 import SchoolBus from "./Pages/SchoolBus/Bus/SchoolBus";
 import BusRoute from "./Pages/SchoolBus/Routes/BusRoute";
-import BusPoints from "./Pages/SchoolBus/BusPonts/BusPoints";
+import BusPoints from "./Pages/SchoolBus/BusPoints/BusPoints";
 import SchoolBusDetail from "./Pages/SchoolBus/Bus/SchoolBusDetail";
 import CreateRoute from "./Pages/SchoolBus/Routes/CreateRoute";
 import TeacherGetUpdateView from "./Pages/Users/Teacher/TeacherGetUpdateView";
@@ -47,6 +47,7 @@ function App() {
               <Route path="/addschoolbus" element={<CreateSchoolBus />} />
               <Route path="/schoolbus/:schoolBusId" element={<SchoolBusDetail />} />
               <Route path="/addservice" element={<AddBusService />} />
+              <Route path="/addservice/:studentId" element={<AddBusService />} />
               <Route path="/route" element={<BusRoute />} />
               <Route path="/buspoints" element={<BusPoints />} />
               <Route path="addroute" element={<CreateRoute />} />

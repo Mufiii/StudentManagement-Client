@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { fetchStudentData } from '../../../Redux/Actions/Action'
@@ -15,12 +15,10 @@ const StudentDetail = () => {
   const { studentId } = useParams()
   const dispatch = useDispatch()
   const student = useSelector(selectStudent);
-
   useEffect(() => {
-    if (studentId) {
       dispatch(fetchStudentData(studentId));
-    }
-  }, [dispatch, studentId]);
+  }, []);
+  console.log(student,'k');
 
   const renderField = (label, value) => (
     <div className='col-span-1'>
@@ -38,12 +36,12 @@ const StudentDetail = () => {
   return (
     <div>
       <div className='mt-5'>
-        {student ? (
+        {student.length !==0 ? (
           <Card className='w-full p-10'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
               <div className='flex items-center gap-5 col-span-1 md:col-span-3'>
                 <img
-                  src={student.user.photo || 'https://via.placeholder.com/150'}
+                  src={student.photo || 'https://via.placeholder.com/150'}
                   alt='Student Photo'
                   className='rounded-full h-32 w-32 object-cover'
                 />
@@ -78,19 +76,22 @@ const StudentDetail = () => {
               Bus Details
             </Typography>
           </div>
-          {student.route && student.route.bus ? (
+          {student.bus_service && student.bus_service.bus ? (
             <div className='grid grid-cols-1 gap-4'>
               <Typography variant='h5' className='font-semibold '>
-                Route Number: <span className='font-bold'>{student.route.route_no}</span>
+                Bus Number: <span className='font-bold'>{student.bus_service.route.bus}</span>
               </Typography>
               <Typography variant='h5' className='font-semibold '>
-                Route: <span className='font-normal'>{student.route.from_location} - {student.route.to_location}</span>
+                Route Number: <span className='font-bold'>{student.bus_service.route.route_no}</span>
               </Typography>
               <Typography variant='h5' className='font-semibold '>
-                Bus Point: <span className='font-normal'>{student.bus_point.name}</span>
+                Route: <span className='font-normal'>{student.bus_service.route.from_location} - {student.bus_service.route.to_location}</span>
               </Typography>
               <Typography variant='h5' className='font-semibold '>
-                Monthly Charge: <span className='font-normal'>{student.bus_point.fee}</span>
+                Bus Point: <span className='font-normal'>{student.bus_service.bus_point.name}</span>
+              </Typography>
+              <Typography variant='h5' className='font-semibold '>
+                Monthly Charge: <span className='font-normal'>{student.bus_service.bus_point.fee}</span>
               </Typography>
               <div className="flex justify-end">
                 <Button className="flex items-center space-x-2" 
@@ -110,7 +111,7 @@ const StudentDetail = () => {
                 No Bus Found
               </Typography>
               <Button
-                onClick={() => navigate(`/addservice?userId=${student.user.id}`)}
+                onClick={() => navigate(`/addservice/${studentId}`)}
                 type='submit'
                 className='bg-blue-500 text-white hover:bg-blue-600'
               >

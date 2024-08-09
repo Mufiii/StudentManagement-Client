@@ -25,7 +25,7 @@ const TeacherGetUpdateView = () => {
 
   return (
     <div>
-      {teacher ? (
+      {teacher && teacher.user ? (
         <div className="relative w-full">
           <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
             <ImCross />
