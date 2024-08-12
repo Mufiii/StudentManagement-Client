@@ -30,15 +30,15 @@ const ClassRoomDetail = () => {
 
 
   return (
-    <div className='h-[555px] overflow-x-auto hide-scrollbar  ' >
+    <div className='max-h-[555px] ' >
       <div>
         {classrooms && (
           <div key={classrooms.id}>
-            <div className='flex justify-between mb-4'>
+            <div className='flex justify-between mb-4 '>
               <Typography variant="h2" color="blue-gray">
                 Classroom {classrooms.name}{classrooms.division}
               </Typography>
-              <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold" onClick={handleOpenModal}>
+              <Button  className="text-white font-bold bg-[#8581B8]" onClick={handleOpenModal}>
                 Add New Student
               </Button>
             </div>
@@ -53,8 +53,11 @@ const ClassRoomDetail = () => {
                 </Typography>
               )}
               {classrooms && classrooms.students && classrooms.students.length > 0 ? (
-                <Table>
-                  <TableHead >
+                
+                <div className='max-h-[450px] overflow-y-auto ' >
+                
+                <Table >
+                  <TableHead className='sticky top-0 bg-gray-100'>
                     <TableRow>
                       <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">S.No</TableCell>
                       <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">Name</TableCell>
@@ -87,6 +90,9 @@ const ClassRoomDetail = () => {
                  
 
                 </Table>
+
+                </div>
+
               ) : (
                 <Typography variant="h3" color="red" className="text-center mt-4">
                   No students found

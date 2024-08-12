@@ -2,33 +2,36 @@ import React from 'react';
 import { FaUserGraduate, FaChalkboardTeacher, FaSchool, FaBus } from 'react-icons/fa';
 
 const Dashboard = () => {
-
   const cards = [
-    { title: 'Students', count: 50, icon: <FaUserGraduate className="text-4xl text-blue-500" /> },
-    { title: 'Teachers', count: 10, icon: <FaChalkboardTeacher className="text-4xl text-green-500" /> },
-    { title: 'Classrooms', count: 20, icon: <FaSchool className="text-4xl text-yellow-500" /> },
-    { title: 'Buses', count: 5, icon: <FaBus className="text-4xl text-red-500" /> },
+    { title: 'Students', count: 50, icon: <FaUserGraduate className="text-3xl text-blue-500" />, para: 'This is students' },
+    { title: 'Teachers', count: 10, icon: <FaChalkboardTeacher className="text-3xl text-green-500" size={38} />, para: 'This is teacher' },
+    { title: 'Classrooms', count: 20, icon: <FaSchool className="text-3xl text-yellow-500" size={38}  />, para: 'This is classroom' },
+    { title: 'Buses', count: 5, icon: <FaBus className="text-3xl text-red-500"  />, para: 'This is bus' },
   ];
 
   return (
     <div className="min-h-screen p-4 bg-gray-100">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {cards.map((card, index) => (
           <div
             key={index}
-            className="relative flex flex-col items-center p-6 bg-white shadow-lg rounded-xl cursor-pointer transform transition-transform hover:scale-105 hover:shadow-xl"
+            className="relative flex flex-col justify-between p-4 bg-white shadow-lg rounded-lg "
+            style={{ height: '150px', width: '100%' }}
           >
-            <div className="absolute top-4 right-4 transform transition-transform hover:rotate-12 hover:scale-110">
-              {card.icon}
+            <div className="flex items-start justify-between w-full">
+              <div className="flex flex-col">
+                <h5 className="font-bold text-sm lg:text-base text-gray-800">
+                  {card.title}
+                </h5>
+                <h1 className="text-2xl lg:text-3xl font-extrabold text-gray-900 mt-1">
+                  {card.count}
+                </h1>
+              </div>
+              <div className="flex items-center justify-center h-10 w-10">
+                {card.icon}
+              </div>
             </div>
-            <div className="flex flex-col items-center pt-12 pb-8">
-              <h5 className="font-bold text-lg lg:text-xl text-gray-800 transform transition-colors duration-300 hover:text-blue-500">
-                {card.title}
-              </h5>
-              <h1 className="text-3xl lg:text-4xl font-extrabold text-gray-900 transform transition-colors duration-300 hover:text-gray-700">
-                {card.count}
-              </h1>
-            </div>
+            <p className="text-xs lg:text-sm text-gray-600 mt-2">{card.para}</p>
           </div>
         ))}
       </div>
