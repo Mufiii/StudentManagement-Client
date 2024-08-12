@@ -1,38 +1,42 @@
-import { Typography } from '@material-tailwind/react';
-import React from 'react'
-import { PiStudentFill } from "react-icons/pi";
+import React from 'react';
+import { FaUserGraduate, FaChalkboardTeacher, FaSchool, FaBus } from 'react-icons/fa';
 
 const Dashboard = () => {
+  const cards = [
+    { title: 'Students', count: 50, icon: <FaUserGraduate className="text-3xl text-blue-500" />, para: 'This is students' },
+    { title: 'Teachers', count: 10, icon: <FaChalkboardTeacher className="text-3xl text-green-500" size={38} />, para: 'This is teacher' },
+    { title: 'Classrooms', count: 20, icon: <FaSchool className="text-3xl text-yellow-500" size={38}  />, para: 'This is classroom' },
+    { title: 'Buses', count: 5, icon: <FaBus className="text-3xl text-red-500"  />, para: 'This is bus' },
+  ];
 
   return (
-    <div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4">
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-          <div className="flex text-black text-xl font-bold mb-4">
-            <div className="bg-blue-gray-100 p-2 rounded-full mr-3">
-              <PiStudentFill size={30} className="text-blue-600" />
+    <div className="min-h-screen p-4 bg-gray-100">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            className="relative flex flex-col justify-between p-4 bg-white shadow-lg rounded-lg "
+            style={{ height: '150px', width: '100%' }}
+          >
+            <div className="flex items-start justify-between w-full">
+              <div className="flex flex-col">
+                <h5 className="font-bold text-sm lg:text-base text-gray-800">
+                  {card.title}
+                </h5>
+                <h1 className="text-2xl lg:text-3xl font-extrabold text-gray-900 mt-1">
+                  {card.count}
+                </h1>
+              </div>
+              <div className="flex items-center justify-center h-10 w-10">
+                {card.icon}
+              </div>
             </div>
-            <Typography variant="h3" className="text-gray-800">
-              Students
-            </Typography>
+            <p className="text-xs lg:text-sm text-gray-600 mt-2">{card.para}</p>
           </div>
-          <div className="text-gray-500">Details about the teacher go here.</div>
-        </div>
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-          <div className="text-black text-xl font-bold mb-4">Teachers</div>
-          <div className="text-gray-500">Details about the teacher go here.</div>
-        </div>
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-          <div className="text-black text-xl font-bold mb-4">Classrooms</div>
-          <div className="text-gray-500">Details about the teacher go here.</div>
-        </div>
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-          <div className="text-black text-xl font-bold mb-4">Teacher</div>
-          <div className="text-gray-500">Details about the teacher go here.</div>
-        </div>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

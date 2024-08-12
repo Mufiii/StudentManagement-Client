@@ -16,9 +16,9 @@ const StudentDetail = () => {
   const dispatch = useDispatch()
   const student = useSelector(selectStudent);
   useEffect(() => {
-      dispatch(fetchStudentData(studentId));
+    dispatch(fetchStudentData(studentId));
   }, []);
-  console.log(student,'k');
+  console.log(student, 'k');
 
   const renderField = (label, value) => (
     <div className='col-span-1'>
@@ -34,24 +34,26 @@ const StudentDetail = () => {
 
 
   return (
-    <div>
+    <div className='h-[555px] overflow-y-auto hide-scrollbar'>
       <div className='mt-5'>
-        {student.length !==0 ? (
+        {student.length !== 0 ? (
           <Card className='w-full p-10'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
-              <div className='flex items-center gap-5 col-span-1 md:col-span-3'>
+
+              <div className='flex flex-col md:flex-row items-center gap-4 md:gap-5 col-span-1 md:col-span-3'>
                 <img
                   src={student.photo || 'https://via.placeholder.com/150'}
                   alt='Student Photo'
-                  className='rounded-full h-32 w-32 object-cover'
+                  className='rounded-full h-24 w-24 sm:h-32 sm:w-32 object-cover'
                 />
-                <div className='flex-grow'>
-                  <Typography variant='h1'>{student.user.name}</Typography>
+                <div className='flex-grow text-center md:text-left'>
+                  <Typography variant='h1' className='text-xl sm:text-2xl md:text-3xl'>{student.user.name}</Typography>
                 </div>
-                <div className='flex-shrink-0 flex items-center'>
+                <div className='flex-shrink-0 flex items-center mt-4 md:mt-0'>
                   <FaRegEdit size={24} className='text-gray-500 cursor-pointer hover:text-gray-700' />
                 </div>
               </div>
+
               {renderField('Admission Number', student.admission_no)}
               {renderField('Username', student.user.username)}
               {renderField('Gender', student.user.gender)}
@@ -94,8 +96,8 @@ const StudentDetail = () => {
                 Monthly Charge: <span className='font-normal'>{student.bus_service.bus_point.fee}</span>
               </Typography>
               <div className="flex justify-end">
-                <Button className="flex items-center space-x-2" 
-                onClick={() => navigate(`/transactions/${student.id}`)} >
+                <Button className="flex items-center space-x-2"
+                  onClick={() => navigate(`/transactions/${student.id}`)} >
                   <Typography variant="h6" className="font-semibold">
                     View Transactions
                   </Typography>

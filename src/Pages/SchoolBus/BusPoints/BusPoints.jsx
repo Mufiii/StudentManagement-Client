@@ -62,14 +62,18 @@ const BusPoints = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between mb-4">
-        <Typography variant="h2" color="blue-gray">
+    <div className='h-[555px] overflow-y-auto hide-scrollbar p-4 md:p-6'>
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sticky top-0 z-10">
+        <Typography
+          variant="h2"
+          color="blue-gray"
+          className="text-center sm:text-left text-xl md:text-2xl font-bold mb-4 sm:mb-0"
+        >
           School Bus Points
         </Typography>
         <Button
           style={{ backgroundColor: '#8581B8' }}
-          className="text-white font-bold"
+          className="text-white  "
           onClick={handleOpenModal}
         >
           Add New Bus Point
@@ -77,35 +81,64 @@ const BusPoints = () => {
       </div>
       <div className="w-full overflow-x-auto">
         {buspoints && buspoints.length > 0 ? (
-          <Table>
+          <Table className="min-w-full border-collapse">
             <TableHead>
               <TableRow>
-                <TableCell style={{ fontWeight: 'bold' }}>S.No</TableCell>
-                <TableCell style={{ fontWeight: 'bold' }}>Bus Point</TableCell>
-                <TableCell style={{ fontWeight: 'bold' }}>Fees</TableCell>
-                <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
+                <TableCell className="font-bold text-xs sm:text-sm md:text-base px-2 sm:px-4 py-2 border-b">
+                  S.No
+                </TableCell>
+                <TableCell className="font-bold text-xs sm:text-sm md:text-base px-2 sm:px-4 py-2 border-b">
+                  Bus Point
+                </TableCell>
+                <TableCell className="font-bold text-xs sm:text-sm md:text-base px-2 sm:px-4 py-2 border-b">
+                  Fees
+                </TableCell>
+                <TableCell className="font-bold text-xs sm:text-sm md:text-base px-2 sm:px-4 py-2 border-b">
+                  Actions
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {buspoints.map((bus, index) => (
-                <TableRow key={index}>
-                  <TableCell className="text-sm font-bold">{index + 1}</TableCell>
-                  <TableCell className="text-sm font-bold">{bus.name}</TableCell>
-                  <TableCell className="text-sm font-bold">{bus.fee}</TableCell>
-                  <TableCell>
-                    <IconButton onClick={() => handleBusPointEditModal(bus.id)}>
-                      <FaRegEdit size={25} />
-                    </IconButton>
-                    <IconButton onClick={() => openConfirmationModal(bus.id)}>
-                      <MdDelete />
-                    </IconButton>
+                <TableRow key={index} className="hover:bg-gray-100">
+                  <TableCell className="text-xs sm:text-sm md:text-base px-2 sm:px-4 py-2 font-bold">
+                    {index + 1}
                   </TableCell>
+                  <TableCell className="text-xs sm:text-sm md:text-base px-2 sm:px-4 py-2 font-bold">
+                    {bus.name}
+                  </TableCell>
+                  <TableCell className="text-xs sm:text-sm md:text-base px-2 sm:px-4 py-2 font-bold">
+                    {bus.fee}
+                  </TableCell>
+
+
+                  <TableCell >
+                    <IconButton
+                      onClick={() => handleBusPointEditModal(bus.id)}
+                     className=''
+                      
+                    >
+                      <FaRegEdit size={20}  />
+                    </IconButton>
+                    <IconButton onClick={() => openConfirmationModal(bus.id)}
+                     >
+                      <MdDelete size={20} />
+                    </IconButton>
+
+                  </TableCell>
+
+               
+
+
+                  
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         ) : (
-          <Typography>No bus points available</Typography>
+          <Typography className="text-center text-sm md:text-base">
+            No bus points available
+          </Typography>
         )}
       </div>
       <CreateBusPoint isOpen={isModalOpen} handleClose={handleCloseModal} />
@@ -125,3 +158,76 @@ const BusPoints = () => {
 };
 
 export default BusPoints;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

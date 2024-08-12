@@ -45,34 +45,36 @@ const BusPointGetUpdateComp = () => {
 
 
   return (
-    <div>
-      <div className='flex justify-between mb-4'>
+    <div className='max-h-[555px]  '>
+      <div className='flex justify-between mb-4  sticky top-0 ' >
         <Typography variant="h2" color="blue-gray">
           Routes
         </Typography>
-        <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold" onClick={handleOpenModal}>
+        <Button  className="text-white font-bold bg-[#8581B8]" onClick={handleOpenModal}>
           Add New Route
         </Button>
       </div>
-      <div className='w-full overflow-x-auto'>
+      <div className='w-full max-h-[500px] overflow-y-auto'>
         {routes && routes.length > 0 ? (
           <Table>
-            <TableHead>
+            <TableHead className='sticky top-0 bg-gray-100 z-10'>
               <TableRow>
                 <TableCell style={{ fontWeight: 'bold' }}>Route Number</TableCell>
                 <TableCell style={{ fontWeight: 'bold' }}>From Location</TableCell>
                 <TableCell style={{ fontWeight: 'bold' }}>To Location</TableCell>
                 <TableCell style={{ fontWeight: 'bold' }}>Bus No</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }} >Actions</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
+            </TableHead> 
+            <TableBody> 
               {routes.map((bus) => (
                 <TableRow key={bus.id}>
                   <TableCell >{bus.route_no}</TableCell>
                   <TableCell >{bus.from_location}</TableCell>
                   <TableCell >{bus.to_location}</TableCell>
                   <TableCell >{bus.bus}</TableCell>
-                  <TableCell>
+                  
+                  <TableCell >
                     <IconButton onClick={() => handleBusPointEditModal(bus.id)} style={{ backgroundColor: 'transparent' }}>
                       <FaRegEdit size={25} />
                     </IconButton>
