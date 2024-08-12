@@ -4,13 +4,13 @@ import { selectTeachers } from '../../../Redux/Slices/FetchAllTeacherSlice';
 import { fetchAllTeachers } from '../../../Redux/Actions/Action';
 import { Button, Card, Typography } from '@material-tailwind/react';
 import TeacherPostView from './TeacherPostView';
-import TeacherGetUpdateView from './TeacherGetUpdateView';
 import { useNavigate } from 'react-router-dom';
+
 
 const TeachersListView = () => {
   const dispatch = useDispatch();
   const teachers = useSelector(selectTeachers);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,12 +34,16 @@ const TeachersListView = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <div className='flex justify-between'>
+    <div className='h-[555px] overflow-y-auto hide-scrollbar '>
+      <div className='flex justify-between p-4 bg sticky top-0 z-20  '>
         <Typography variant="h4" color="blue-gray">
           Teachers List
         </Typography>
-        <Button onClick={handleOpenModal} style={{ backgroundColor: "#8581B8" }} className=" text-white font-bold">
+        <Button
+          onClick={handleOpenModal}
+          style={{ backgroundColor: "#8581B8" }}
+          className="text-white font-bold"
+        >
           Add New Teacher
         </Button>
       </div>
@@ -52,11 +56,11 @@ const TeachersListView = () => {
                   <img
                     src={user.photo}
                     alt={user.user.name}
-                    className="w-32 h-32 rounded-full -mb-12 z-10 border-4 border-white"
+                    className="w-32 h-32 rounded-full -mb-12 z-10 border-4 border-white cursor-pointer"
                   />
                 </div>
                 <div className="w-full bg-white pt-16 pb-6 rounded-b-lg flex flex-col items-center">
-                  <Typography>{user.user.name}</Typography>
+                  <Typography className='font-bold'>{user.user.name}</Typography>
                   <Typography>{user.user.email}</Typography>
                 </div>
               </div>
@@ -67,6 +71,6 @@ const TeachersListView = () => {
       <TeacherPostView isOpen={isModalOpen} handleClose={handleCloseModal} />
     </div>
   );
-}
+};
 
 export default TeachersListView;

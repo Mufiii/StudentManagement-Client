@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Card, Dialog, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -58,12 +58,40 @@ const NewStudents = ({ isOpen, handleClose }) => {
     }
   };
 
+  const fileInputRef = useRef(null);
+
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
+
+
   return (
     <Dialog open={isOpen} size="lg" handler={handleClose}>
       <Card className="p-6 rounded-lg shadow-lg">
         <Typography variant="h4" color="blue-gray" className="mb-4">
           Add New Student
         </Typography>
+
+        <div className="flex flex-col">
+
+
+          <div className="mt-1 mb-2">
+            <Typography
+              color="blue"
+              className=" cursor-pointer"
+              onClick={handleFileInputClick}
+            >
+              + Add Picture
+            </Typography>
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+            />
+          </div>
+
+        </div>
+
         <form className="space-y-6" onSubmit={handleFormSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>

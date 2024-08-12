@@ -5,13 +5,14 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import TeachersListView from "./TeachersListView";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTeachers } from "../../../Redux/Slices/FetchAllTeacherSlice";
 import { fetchAllTeachers } from "../../../Redux/Actions/Action";
+import { FaPlus } from 'react-icons/fa';
 
-const TeacherPostView = ( {isOpen , handleClose} ) => {
+const TeacherPostView = ({ isOpen, handleClose }) => {
 
   const dispatch = useDispatch()
 
@@ -60,7 +61,11 @@ const TeacherPostView = ( {isOpen , handleClose} ) => {
     }
   };
 
+  const fileInputRef = useRef(null);
 
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
 
   return (
     <>
@@ -84,10 +89,25 @@ const TeacherPostView = ( {isOpen , handleClose} ) => {
                   className="w-32 flex items-center h-32 rounded-full border-4 border-white"
                 />
               </div>
+            
+
               <div className="mt-2">
-                <Typography color="blue" className="text-center">+ Add Picture</Typography>
+                <Typography
+                  color="blue"
+                  className="text-center cursor-pointer"
+                  onClick={handleFileInputClick}
+                >
+                  + Add Picture
+                </Typography>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  className="hidden"
+                />
               </div>
+
             </div>
+
             <div className="grid grid-cols-1 mt-3  gap-6">
               <div className="flex flex-col">
                 <input
@@ -140,15 +160,15 @@ const TeacherPostView = ( {isOpen , handleClose} ) => {
                 />
               </div>
             </div>
-              <div className="flex flex-col mt-3">
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email Address" required
-                />
-              </div>
+            <div className="flex flex-col mt-3">
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email Address" required
+              />
+            </div>
             <div className="flex justify-end gap-3">
               <Button style={{ backgroundColor: "#E4E5E7" }} className="mt-6 rounded-full text-white" onClick={handleClose}>
                 Cancel

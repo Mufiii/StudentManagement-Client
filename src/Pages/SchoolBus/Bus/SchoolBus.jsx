@@ -30,15 +30,19 @@ const SchoolBus = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <div className='flex justify-between mb-4'>
-        <Typography variant="h2" color="blue-gray">
-          School Bus List
-        </Typography>
-        <Button onClick={handleOpenModal} style={{ backgroundColor: "#8581B8" }} className="text-white font-bold">
-          Add New Bus
-        </Button>
-      </div>
+    <div className='h-[555px] overflow-y-auto hide-scrollbar'>
+   <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 sticky top-0 z-10">
+  <Typography variant="h2" color="blue-gray" className="text-xl md:text-2xl lg:text-3xl">
+    School Bus List
+  </Typography>
+  <Button
+    onClick={handleOpenModal}
+    className="mt-2 md:mt-0 bg-[#8581B8] text-white font-bold py-2 px-4 rounded-md"
+  >
+    Add New Bus
+  </Button>
+</div>
+
       <div>
       <div className='flex flex-wrap gap-4'>
         {schoolbus && schoolbus.length > 0 ? (

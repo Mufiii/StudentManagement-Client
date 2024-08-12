@@ -30,7 +30,7 @@ const ClassRoomDetail = () => {
 
 
   return (
-    <div>
+    <div className='h-[555px] overflow-x-auto hide-scrollbar  ' >
       <div>
         {classrooms && (
           <div key={classrooms.id}>
@@ -54,7 +54,7 @@ const ClassRoomDetail = () => {
               )}
               {classrooms && classrooms.students && classrooms.students.length > 0 ? (
                 <Table>
-                  <TableHead>
+                  <TableHead >
                     <TableRow>
                       <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">S.No</TableCell>
                       <TableCell style={{ fontWeight: 900 }} className="py-2 px-4 border-b">Name</TableCell>
@@ -65,7 +65,8 @@ const ClassRoomDetail = () => {
                       {/* Add more table headers as needed */}
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+
+                  <TableBody  >
                     {classrooms.students.map((student, index) => (
                       <TableRow key={index}>
                         <TableCell className="py-2 px-4 border-b">{index + 1}</TableCell>
@@ -82,6 +83,9 @@ const ClassRoomDetail = () => {
                       </TableRow>
                     ))}
                   </TableBody>
+
+                 
+
                 </Table>
               ) : (
                 <Typography variant="h3" color="red" className="text-center mt-4">

@@ -45,12 +45,12 @@ const BusPointGetUpdateComp = () => {
 
 
   return (
-    <div>
-      <div className='flex justify-between mb-4'>
+    <div className='h-[555px] overflow-y-auto hide-scrollbar  '>
+      <div className='flex justify-between mb-4  sticky top-0 ' >
         <Typography variant="h2" color="blue-gray">
           Routes
         </Typography>
-        <Button style={{ backgroundColor: "#8581B8" }} className="text-white font-bold" onClick={handleOpenModal}>
+        <Button  className="text-white font-bold bg-[#8581B8]" onClick={handleOpenModal}>
           Add New Route
         </Button>
       </div>
@@ -63,9 +63,10 @@ const BusPointGetUpdateComp = () => {
                 <TableCell style={{ fontWeight: 'bold' }}>From Location</TableCell>
                 <TableCell style={{ fontWeight: 'bold' }}>To Location</TableCell>
                 <TableCell style={{ fontWeight: 'bold' }}>Bus No</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
+            </TableHead> 
+            <TableBody> 
               {routes.map((bus) => (
                 <TableRow key={bus.id}>
                   <TableCell >{bus.route_no}</TableCell>

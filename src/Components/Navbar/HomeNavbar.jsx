@@ -31,13 +31,14 @@ const HomeNavbar = () => {
 
 
   return (
-    <div className="max-h-[768px] w-100 ">
+   
+    <div className="max-h-[768px] w-100  ">
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 shadow-none">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography style={{ fontSize: "1.3em" }} as="a" href="#" className="mr-4 cursor-pointer py-1.5 font-extrabold ">
             KKMHS
           </Typography>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 ">
             <div className="flex ">
               <input
                 type="text"
